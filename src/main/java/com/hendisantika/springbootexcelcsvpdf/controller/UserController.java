@@ -4,6 +4,8 @@ import com.hendisantika.springbootexcelcsvpdf.model.User;
 import com.hendisantika.springbootexcelcsvpdf.service.UserService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -61,20 +63,26 @@ public class UserController {
     }
 
     @GetMapping(value = "/download3", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<InputStreamReader> downloadDocument(
+    public ResponseEntity<Resource> downloadDocument(
             String acquistionId,
             String fileType,
             Integer expressVfId) throws IOException {
-        File file2Upload = new File("/Users/hendisantika/Documents/IdeaProjects/spring-boot-excel-csv-pdf/README.md");
+        File file = new File("/Users/hendisantika/Documents/IdeaProjects/spring-boot-excel-csv-pdf/README.md");
+
+
+
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Pragma", "no-cache");
         headers.add("Expires", "0");
-        InputStreamReader i = new InputStreamReader(new FileInputStream(file2Upload));
-        System.out.println("The length of the file is : " + file2Upload.length());
+        InputStreamReader i = new InputStreamReader(new FileInputStream(file));
+        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+        System.out.println("The length of the file is : " + file.length());
 
-        return ResponseEntity.ok().headers(headers).contentLength(file2Upload.length())
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(file.length())
                 .contentType(MediaType.parseMediaType("application/octet-stream"))
-                .body(i);
+                .body(resource);
     }
 }
