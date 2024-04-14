@@ -6,10 +6,10 @@ Run this project :
 
 `mvn clean spring-boot:run`
 
-`http://localhost:8080`
+http://localhost:8080
 
-`http://localhost:8080/download.pdf` - Generate PDF File
+http://localhost:8080/download.pdf - Generate PDF File
 
-`http://localhost:8080/download.xls` - Generate Excel File
+http://localhost:8080/download.xls - Generate Excel File
 
-`http://localhost:8080/download.csv` - Generate CSV File
+http://localhost:8080/download.csv - Generate CSV File

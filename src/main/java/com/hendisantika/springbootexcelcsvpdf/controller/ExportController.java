@@ -1,11 +1,10 @@
 package com.hendisantika.springbootexcelcsvpdf.controller;
 
 import com.hendisantika.springbootexcelcsvpdf.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,14 +18,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 
 @Controller
+@RequiredArgsConstructor
 public class ExportController {
-    @Autowired
-    UserService userService;
+    private final UserService userService;
 
     /**
      * Handle request to download an Excel document
      */
-    @RequestMapping(value = "/download", method = RequestMethod.GET)
+    @GetMapping(value = "/download")
     public String download(Model model) {
         model.addAttribute("users", userService.findAllUsers());
         return "";
